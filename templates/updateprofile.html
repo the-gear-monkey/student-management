@@ -1,0 +1,131 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your meta tags, title, and stylesheet links here -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: rgb(9, 16, 17);
+            color: white;            
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            background-position: center; 
+            padding-top: 100px;
+        }
+
+        .updateprofile-container {
+            width: 400px;
+            background-color: rgba(255, 255, 255);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 80px;
+        }
+
+        h1 {
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .center-button {
+            text-align: center;
+        }
+
+        nav {
+            background-color: rgba(26, 79, 75, 0.498);
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .nav-link {
+            color: white;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .mb-3 {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+        }
+
+        .profile-image {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'userprofile' %}" style="font-size: 28px;">
+                USER_PROFILE
+            </a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'userprofile' %}">VIEW PROFILE</a>
+                <a class="nav-link" href="{% url 'updateprofile' %}">UPDATE PROFILE</a>
+                <a class="nav-link" href="{% url 'logout_user' %}">LOGOUT</a>
+            </div> 
+        </div>
+    </nav>
+
+    <div class="container updateprofile-container">
+        <h1><strong>Update Profile</strong></h1>
+        <form method="post" action="{% url 'update_user' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="first_name" value="{{ user_member.user.first_name }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="last_name" value="{{ user_member.user.last_name }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ user_member.user.email }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" required>{{ user_member.address }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="age" class="form-label">Age</label>
+                <input type="number" class="form-control" id="age" name="age" value="{{ user_member.age }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="contactNumber" class="form-label">Contact Number</label>
+                <input type="tel" class="form-control" id="contactNumber" name="contact_number" value="{{ user_member.number }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="course" class="form-label">Course</label>
+                <input type="text" class="form-control" id="course" name="course" value="{{ user_member.course.course_name }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="photo" class="form-label">Update Photo</label>
+                <input type="file" class="form-control" id="photo" name="photo" accept="images/*">
+            </div>
+            <br>
+            <div class="center-button">
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Add your script tags for Bootstrap JS here -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
